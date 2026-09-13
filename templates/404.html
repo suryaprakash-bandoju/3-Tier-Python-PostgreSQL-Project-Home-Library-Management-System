@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Not Found{% endblock %}
+{% block content %}
+<div class="container narrow error-page">
+    <span class="eyebrow">404</span>
+    <h1>Book or page not found.</h1>
+    <a href="{{ url_for('index') }}" class="primary-button">Back to Library</a>
+</div>
+{% endblock %}

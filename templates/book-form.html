@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}{{ form_title }}{% endblock %}
+
+{% block content %}
+<div class="container narrow">
+    <section class="form-page">
+        <span class="eyebrow">LIBRARY MANAGEMENT</span>
+        <h1>{{ form_title }}</h1>
+        <p>Enter the book details below.</p>
+
+        <form class="form-card"
+              method="POST"
+              action="{% if book and book.id %}{{ url_for('update_book', book_id=book.id) }}{% else %}{{ url_for('create_book') }}{% endif %}">
+
+            <div class="form-grid">
+                <div class="form-group full">
+                    <label>Book Title</label>
+                    <input name="title" value="{{ book.title if book else '' }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Author</label>
+                    <input name="author" value="{{ book.author if book else '' }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Genre</label>
+                    <input name="genre" value="{{ book.genre if book else '' }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Published Year</label>
+                    <input name="published_year" type="number"
+                           value="{{ book.published_year if book else '' }}" required>
+                </div>
+
+                {% if book and book.id %}
+                <div class="form-group availability-box">
+                    <label>
+                        <input type="checkbox" name="available"
+                               {% if book.available %}checked{% endif %}>
+                        Available
+                    </label>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-actions">
+                <a href="{{ url_for('index') }}" class="secondary-button">Cancel</a>
+                <button type="submit" class="primary-button">Save Book</button>
+            </div>
+        </form>
+    </section>
+</div>
+{% endblock %}
