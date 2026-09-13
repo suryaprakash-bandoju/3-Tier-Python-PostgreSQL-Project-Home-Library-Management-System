@@ -1,4 +1,3 @@
-````markdown
 # Home Library Management System
 
 A simple three-tier web application for managing a personal collection of books.
