@@ -368,10 +368,51 @@ Open:
 ```text
 http://localhost:5000
 ```
+Add some data to the database table
 
-For GitHub Codespaces, forward **port 5000** and open the forwarded URL in your browser.
+### PostgreSQL Database Verification
 
----
+Connect to PostgreSQL:
+
+```bash
+sudo -u postgres psql
+````
+
+Connect to the project database:
+
+```sql
+\c library_db
+```
+
+List the available tables:
+
+```sql
+\dt
+```
+
+Expected result:
+
+```text
+ Schema | Name  | Type  | Owner
+--------+-------+-------+--------------
+ public | books | table | library_user
+```
+
+To view the records in the `books` table:
+
+```sql
+SELECT * FROM books;
+```
+
+> **Note:** Always end SQL statements with a semicolon (`;`).
+> If the prompt changes from `library_db=#` to `library_db-#`, PostgreSQL is waiting for the current SQL statement to be completed.
+
+To exit PostgreSQL:
+
+```sql
+\q
+```
+
 
 # Application Usage
 
