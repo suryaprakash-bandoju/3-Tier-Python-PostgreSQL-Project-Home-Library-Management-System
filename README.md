@@ -294,6 +294,61 @@ and creates the `books` table with sample records.
 
 ---
 
+### PostgreSQL Schema Permissions
+
+If you get:
+
+```text
+psycopg.errors.InsufficientPrivilege:
+permission denied for schema public
+````
+
+the PostgreSQL user can access the database but does not have permission to create tables in the `public` schema.
+
+Connect as the PostgreSQL administrator:
+
+```bash
+sudo -u postgres psql
+```
+
+Then run:
+
+```sql
+\c library_db
+
+GRANT USAGE, CREATE ON SCHEMA public TO library_user;
+
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO library_user;
+
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO library_user;
+```
+
+Exit PostgreSQL:
+
+```sql
+\q
+```
+
+Then set the database connection variable:
+
+```bash
+export DATABASE_URL="postgresql://library_user:library_password@localhost:5432/library_db"
+```
+
+Verify:
+
+```bash
+echo $DATABASE_URL
+```
+
+Initialize the database:
+
+```bash
+python -c "from db import init_db; init_db()"
+```
+
+If successful, the required database tables will be created.
+
 # Run the Application
 
 ## 8. Start the Server
